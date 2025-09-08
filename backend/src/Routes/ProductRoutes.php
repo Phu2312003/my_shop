@@ -15,7 +15,8 @@ class ProductRoutes
 
     public function __construct()
     {
-        $this->mongoClient = new Client($_ENV['DB_HOST'] . ':' . $_ENV['DB_PORT']);
+        $connectionString = $_ENV['DB_CONNECTION_STRING'] ?? ($_ENV['DB_HOST'] . ':' . $_ENV['DB_PORT']);
+        $this->mongoClient = new Client($connectionString);
     }
 
     public function getAll(Request $request, Response $response): Response
