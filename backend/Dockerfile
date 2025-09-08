@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
     unzip \
+    nodejs \
+    npm \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Install MongoDB extension
@@ -29,6 +31,13 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Copy application code
 COPY . .
+
+# Build frontend
+WORKDIR /var/www/html
+RUN npm install && npm run build
+
+# Move built frontend to backend public
+RUN mv build/* public/ && rm -rf build src node_modules package*.json
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
