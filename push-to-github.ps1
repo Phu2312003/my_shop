@@ -5,7 +5,8 @@ Write-Host "🚀 Push My Shop lên GitHub" -ForegroundColor Green
 try {
     git --version > $null
     Write-Host "✅ Git OK" -ForegroundColor Green
-} catch {
+}
+catch {
     Write-Host "❌ Cài đặt Git trước: https://git-scm.com" -ForegroundColor Red
     exit 1
 }
@@ -37,7 +38,8 @@ Write-Host "✅ Đã thêm files" -ForegroundColor Green
 git commit -m "My Shop E-commerce project" 2>$null
 if ($LASTEXITCODE -eq 0) {
     Write-Host "✅ Commit thành công" -ForegroundColor Green
-} else {
+}
+else {
     Write-Host "⚠️  Không có gì để commit hoặc đã commit rồi" -ForegroundColor Yellow
 }
 
@@ -64,16 +66,19 @@ if ($repoUrl) {
     if ($LASTEXITCODE -eq 0) {
         Write-Host "🎉 THÀNH CÔNG! Code đã lên GitHub!" -ForegroundColor Green
         Write-Host "🔗 $repoUrl" -ForegroundColor Cyan
-    } else {
+    }
+    else {
         git push -u origin master 2>$null
         if ($LASTEXITCODE -eq 0) {
             Write-Host "🎉 THÀNH CÔNG! Code đã lên GitHub!" -ForegroundColor Green
             Write-Host "🔗 $repoUrl" -ForegroundColor Cyan
-        } else {
+        }
+        else {
             Write-Host "❌ Push thất bại. Kiểm tra URL và thử lại." -ForegroundColor Red
         }
     }
-} else {
+}
+else {
     Write-Host "❌ Cần URL repository" -ForegroundColor Red
 }
 
