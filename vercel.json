@@ -21,10 +21,5 @@
   ],
   "env": {
     "REACT_APP_API_URL": "https://your-backend-api-url.com/api/v1"
-  },
-  "functions": {
-    "src/pages/api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
   }
 }
