@@ -1,11 +1,20 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext, Suspense, lazy } from 'react';
 import Header from './components/Header';
-import HomePage from './pages/Home';
-import ProductDetail from './pages/ProductDetail';
-import CartPage from './pages/Cart';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import OrdersPage from './pages/OrdersPage';
+
+// Lazy load pages for code splitting
+const HomePage = lazy(() => import('./pages/Home'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+const CartPage = lazy(() => import('./pages/Cart'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage'));
+const OrdersPage = lazy(() => import('./pages/OrdersPage'));
+
+// Loading component
+const PageLoader = () => (
+    <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+    </div>
+);
 
 // Mock Data
 const mockCategories = [
@@ -166,7 +175,9 @@ function App() {
         <AppContext.Provider value={{ state, dispatch }}>
             <div className="min-h-screen bg-gray-50">
                 <Header state={state} dispatch={dispatch} />
-                {renderPage()}
+                <Suspense fallback={<PageLoader />}>
+                    {renderPage()}
+                </Suspense>
             </div>
         </AppContext.Provider>
     );

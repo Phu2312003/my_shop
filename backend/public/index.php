@@ -4,6 +4,8 @@ declare(strict_types=1);
 use DI\Container;
 use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 // Load environment variables
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -16,6 +18,27 @@ $container = new Container();
 // Create App
 AppFactory::setContainer($container);
 $app = AppFactory::create();
+
+// Performance middleware - add compression and caching headers
+$app->add(function (Request $request, $handler) {
+    $response = $handler->handle($request);
+
+    // Add compression headers
+    $response = $response->withHeader('Content-Encoding', 'gzip')
+                        ->withHeader('Vary', 'Accept-Encoding');
+
+    // Add security headers
+    $response = $response->withHeader('X-Content-Type-Options', 'nosniff')
+                        ->withHeader('X-Frame-Options', 'DENY')
+                        ->withHeader('X-XSS-Protection', '1; mode=block');
+
+    // Add caching headers for API responses (short cache for dynamic content)
+    if (str_contains($request->getUri()->getPath(), '/api/')) {
+        $response = $response->withHeader('Cache-Control', 'private, max-age=300'); // 5 minutes
+    }
+
+    return $response;
+});
 
 // Add middleware
 $app->add(new App\Middleware\CorsMiddleware());

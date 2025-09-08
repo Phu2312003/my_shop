@@ -1,5 +1,27 @@
 # My Shop - E-commerce Application
 
+## ⚡ Performance Optimizations Implemented
+
+### Frontend Optimizations
+- **Code Splitting**: Implemented React.lazy() for all page components with Suspense loading
+- **Service Worker**: Added comprehensive caching strategy for offline functionality
+- **Bundle Optimization**: Code is split into chunks for faster initial load
+- **Performance Monitoring**: Web Vitals tracking (CLS, LCP, FID)
+- **Memory Monitoring**: Real-time memory usage tracking
+- **Network Monitoring**: Request performance analysis
+
+### Backend Optimizations
+- **Compression**: Gzip compression for all responses
+- **Caching Headers**: Strategic caching for API responses (5-minute cache)
+- **Security Headers**: XSS protection, content type options, frame options
+- **Database Optimization**: Connection pooling and query optimization
+
+### Infrastructure Optimizations
+- **CDN Ready**: Static assets configured for CDN deployment
+- **Browser Caching**: 1-year cache for static assets (JS/CSS/images)
+- **Security**: Comprehensive .htaccess security rules
+- **SPA Routing**: Optimized client-side routing with fallback
+
 ## 🚀 Hướng Dẫn Triển Khai Chi Tiết
 
 ### Bước 1: Thiết Lập Database MongoDB Atlas

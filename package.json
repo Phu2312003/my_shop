@@ -2,6 +2,7 @@
   "name": "my-shop",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/my_shop/",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -11,9 +12,13 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "build:analyze": "npm run build -- --stats && npx webpack-bundle-analyzer build/static/js/*.js",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "vercel-build": "craco build"
+    "vercel-build": "craco build",
+    "serve": "serve -s build -l 3000",
+    "lint": "eslint src --ext .js,.jsx",
+    "lint:fix": "eslint src --ext .js,.jsx --fix"
   },
   "eslintConfig": {
     "extends": [
