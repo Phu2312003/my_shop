@@ -51,7 +51,7 @@ Write-Host "3. Tên: my-shop-ecommerce" -ForegroundColor Yellow
 Write-Host "4. Nhấn 'Create repository'" -ForegroundColor White
 
 # Nhập URL repo
-$repoUrl = Read-Host "`nNhập URL repository GitHub"
+$repoUrl = Read-Host "`nhttps://github.com/Phu2312003/my_shop"
 
 if ($repoUrl) {
     # Thêm remote
